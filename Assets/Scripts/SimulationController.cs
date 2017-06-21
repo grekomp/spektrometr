@@ -10,7 +10,7 @@ public class SimulationController : MonoBehaviour {
 	public float angle = 0f;
 	public float charge = 0.01f;
 	public Vector3 initialPosition = new Vector3(-1, 0, 0);
-	public Vector3 initialVelocity = new Vector3(0, 1, 0);
+	public Vector3 initialVelocity = new Vector3(0f, 1f, 0f);
 
 	// Settings
 	public bool autoFire = false;
@@ -31,8 +31,6 @@ public class SimulationController : MonoBehaviour {
 			// Fire and reset timer
 			if (autoFireCountdown <= 0)
 			{
-				Debug.Log("Autofire");
-
 				Fire();
 				autoFireCountdown = autoFireDelay;
 			}
@@ -62,9 +60,9 @@ public class SimulationController : MonoBehaviour {
 
 		int index = Random.Range(0, masses.Length);
 
-		Debug.Log(masses[index]);
+		Vector3 velocity = Quaternion.Euler(0f, 0f, angle) * initialVelocity;
 
-		particleController.Setup(initialVelocity, charge, masses[index], initialPosition);
+		particleController.Setup(velocity, charge, masses[index], initialPosition);
 		particleInstance.GetComponent<SpriteRenderer>().color = colors[index];
 		particleInstance.GetComponent<TrailRenderer>().material.SetColor("_Color", colors[index]);
 	}

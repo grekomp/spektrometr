@@ -31,7 +31,7 @@ public class Particle : MonoBehaviour {
 			time += Time.deltaTime;
 			Vector3 position = new Vector3();
 			position.x = initialPosition.x + (velocity / frequency) * (Mathf.Cos(fi) - Mathf.Cos(frequency * time + fi));
-			position.y = (velocity / frequency) * (Mathf.Sin(fi) + Mathf.Sin(frequency * time + fi));
+			position.y = -(velocity / frequency) * (Mathf.Sin(fi) - Mathf.Sin(frequency * time + fi));
 			transform.position = position;
 		} else
 		{
