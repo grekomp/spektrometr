@@ -28,6 +28,14 @@ public class UserInterfaceController : MonoBehaviour {
 	Toggle autoFireToggle;
 	public bool autoFire;
 
+	// Time Scale
+	Slider timeScaleSlider;
+	public float timeScale;
+
+	// Induction
+	InputField inductionInput;
+	public float induction;
+
 	void Start () {
 		// Setting instance for external access
 		instance = this;
@@ -48,6 +56,12 @@ public class UserInterfaceController : MonoBehaviour {
 
 		// Auto Fire
 		autoFireToggle = GameObject.Find("Auto Fire Toggle").GetComponent<Toggle>();
+
+		// Time Scale
+		timeScaleSlider = GameObject.Find("Time Scale Slider").GetComponent<Slider>();
+
+		// Induction
+		inductionInput = GameObject.Find("Induction Input").GetComponent<InputField>();
 	}
 	
 	void OnGUI() {
@@ -66,5 +80,11 @@ public class UserInterfaceController : MonoBehaviour {
 
 		// Auto Fire
 		autoFire = autoFireToggle.isOn;
+
+		// Time Scale 
+		timeScale = timeScaleSlider.value;
+
+		// Induction
+		induction = float.Parse(inductionInput.text);
 	}
 }

@@ -32,7 +32,14 @@ public class Particle : MonoBehaviour {
 			Vector3 position = new Vector3();
 			position.x = initialPosition.x + (velocity / frequency) * (Mathf.Cos(fi) - Mathf.Cos(frequency * time + fi));
 			position.y = -(velocity / frequency) * (Mathf.Sin(fi) - Mathf.Sin(frequency * time + fi));
-			transform.position = position;
+
+			if (!float.IsNaN(position.x))
+			{
+				transform.position = position;
+			} else
+			{
+				Destroy(gameObject, 1);
+			}
 		} else
 		{
 			Destroy(gameObject, 5);

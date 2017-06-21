@@ -7,6 +7,7 @@ public class SimulationController : MonoBehaviour {
 	// Simulation parameters
 	public float[] masses = new float[3];
 	public Color[] colors = new Color[3];
+	public GameObject[] centers = new GameObject[3];
 	public float angle = 0f;
 	public float charge = 0.01f;
 	public Vector3 initialPosition = new Vector3(-1, 0, 0);
@@ -35,6 +36,23 @@ public class SimulationController : MonoBehaviour {
 				autoFireCountdown = autoFireDelay;
 			}
 		}
+
+		// Move Centers
+		for (int i = 0; i < masses.Length; i++)
+		{
+			Vector3 velocity = Quaternion.Euler(0f, 0f, angle) * initialVelocity;
+
+			float frequency = charge * Field.induction / masses[i];
+			float fi = Mathf.Atan(velocity.x / velocity.y);
+
+			centers[i].transform.position = new Vector3(
+				initialPosition.x + (velocity.magnitude / frequency) * Mathf.Cos(fi),
+				-(initialPosition.y + (velocity.magnitude / frequency) * Mathf.Sin(fi)),
+				-1
+			);
+
+			centers[i].GetComponent<SpriteRenderer>().color = colors[i];
+		}
 	}
 
 	void OnGUI()
@@ -50,6 +68,8 @@ public class SimulationController : MonoBehaviour {
 			masses[2] = UserInterfaceController.instance.mass3;
 
 			angle = UserInterfaceController.instance.angle;
+
+			Time.timeScale = UserInterfaceController.instance.timeScale;
 		}
 	}
 
